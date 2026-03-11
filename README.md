@@ -1,43 +1,44 @@
 # Secure Communications & Encrypted Messaging
 
-**Course project** | école d'ingénieurs — Nov.–Dec. 2025 | Python, Flask
+**Projet Cybersécurité / Cryptographie appliquée** | école d'ingénieurs — Nov.–Déc. 2025 | Python, Flask
 
-## Overview
+## Présentation
 
-End-to-end encrypted messaging application with a Flask backend, covering cryptographic protocols, MITM attacks and RSA-based authentication.
-
-## Cryptographic Protocols
-
-- **Diffie-Hellman key exchange** over Flask
-- **RSA encryption** — key generation, encryption/decryption, digital signatures
-- **AES-128 sessions** — symmetric session key distribution via trusted server
-- **SHA-256 integrity** — message authentication
-
-## Attacks Demonstrated
-
-- **Live MITM** via `mitmproxy` on unauthenticated DH exchange
-- **RSA impersonation** — signature forgery without authentication
-- **Replay attacks** on unprotected session tokens
+Conception d'une messagerie sécurisée client/serveur. Chaque message est chiffré avec une clé de session AES, transmise de façon sécurisée via RSA par un serveur de confiance.
 
 ## Architecture
 
 ```
-secure-messaging/
-├── server/           # Flask trusted server
-│   ├── app.py
-│   └── key_distribution.py
-├── client/           # Client app
-│   ├── client.py
-│   └── crypto.py
-└── attacks/          # MITM & impersonation demos
-    ├── mitm.py
-    └── rsa_forgery.py
+ Client A                  Serveur                Client B
+ gen RSA (pub/priv)    → reçoit clés publiques  ← gen RSA (pub/priv)
+                          gen clé AES session
+                          chiffre AES avec RSA-A et RSA-B
+ clé AES (déchiffrée) ←  envoie                → clé AES (déchiffrée)
+          ←———— messages chiffrés AES directement ————→
 ```
+
+## Protocoles implémentés
+
+| Partie | Contenu |
+|:---|:---|
+| **P1** | Échange Diffie-Hellman → secret partagé `k`, chiffrement clé AES-128 par XOR avec `k`, intégrité SHA-256 |
+| **P2** | Communication client/serveur chiffrée RSA via Flask/HTTP |
+| **P3** | Attaque MITM avec `mitmproxy` : interception + modification de messages |
+| **P4** | Signature numérique RSA côté client : triplet (message chiffré + signature + clé publique) |
+| **P5** | Attaques par usurpation : remplacement clé publique seule, puis remplacement complet |
+
+## Mini-projet — Messagerie complète
+
+- Chaque client génère une paire RSA et s'enregistre auprès du serveur
+- Serveur distribue la clé AES de session chiffrée pour chaque client
+- Communication directe client-à-client chiffrée AES
+- Interface HTML simple pour la saisie et l'affichage
+- Affichage clair/chiffré dans le terminal
 
 ## Stack
 
-`Python` · `Flask` · `pycryptodome` · `mitmproxy`
+`Python` · `Flask` · `cryptography` · `mitmproxy`
 
 ---
 
-*Academic project — école d'ingénieurs*
+*Projet académique — école d'ingénieurs*
