@@ -1,4 +1,4 @@
-# TP02 - Secure Messaging Client
+# Secure Messaging Client
 
 import sys
 import requests
