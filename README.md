@@ -1,4 +1,4 @@
-# Secure Messaging v2 — Advanced
+# Secure Messaging
 
 End-to-end encrypted chat with **AES-128-GCM**, 
 RSA-PSS message signatures, multi-session support, 
@@ -7,7 +7,7 @@ The project is part of an educational TP whose goal is
 to practice designing and implementing a hybrid RSA + AES 
 secure messaging system.
 
-> There is 2 versions  
+> There is two versions [version1 ; version2]
 
 ---
 
