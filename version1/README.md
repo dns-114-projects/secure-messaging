@@ -1,4 +1,4 @@
-# Secure Messaging — TP02
+# Secure Messaging 
 
 A minimal end-to-end encrypted chat application using **RSA + AES hybrid encryption**, implemented in Python/Flask with a browser-based UI.
 
